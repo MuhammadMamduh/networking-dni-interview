@@ -21,11 +21,21 @@ To compile and run this application, you need a Linux environment with the follo
 * **iptables** (To direct traffic to the userspace queue)
 * **netcat (nc)** (For testing traffic)
 
-### Installation (Debian/Ubuntu)
+### Installation & running
 
 ```bash
-sudo apt-get update
-sudo apt-get install build-essential libnetfilter-queue-dev libnfnetlink-dev iptables netcat
+# build the image
+docker image build -t cpp-firewall .
+
+# run the container
+docker run --name my-firewall --cap-add=NET_ADMIN cpp-firewall
+
+# run the server from terminal-1
+nc -lk -p 8080
+
+# run the client from terminal-2
+echo "This should be okay" | nc -w 1 -q 0 127.0.0.1 8080
+echo "virus is not okay" | nc -w 1 -q 0 127.0.0.1 8080
 ```
 
 # 2. Twitch Stream Aggregator (Layer 7 Application)
