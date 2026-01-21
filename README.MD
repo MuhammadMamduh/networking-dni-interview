@@ -24,6 +24,12 @@ To compile and run this application, you need a Linux environment with the follo
 ### Installation & running
 
 ```bash
+# address sanitizer
+g++ -fsanitize=address -g -O1 firewall.cpp -o firewall
+
+# valgrind
+g++ -g firewall.cpp -o firewall
+
 # build the image
 docker image build -t cpp-firewall .
 
